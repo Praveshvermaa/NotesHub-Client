@@ -16,55 +16,62 @@ import { Toaster } from "sonner";
 import UploadPapers from "./pages/uploader/PapersUpload"
 import SearchPage from "./pages/accessor/SearchPage"
 import PreviousYearPapers from "./pages/accessor/PreviousYearPapers"
+import VerifyEmailPage from "./pages/VerifyEmailPage"
+import ResendEmailPage from "./pages/ResendEmailPage"
+import ForgotPassword from "./pages/ForgotPassword"
+import ResetPassword from "./pages/ResetPassword"
 
 function App() {
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <AuthProvider>
-      <Router>
-       
-       <Routes>
-         <Route path="/" element={<Home />} />
-         <Route path="/about" element={<About />} />
-         <Route path="/register" element={<Register />} />
-         <Route path="/login" element={<Login />} />
-         <Route path = "/access" element={<Access/>}/>
-         <Route path = "/uploadpapers" element={<UploadPapers/>}/>
-         <Route path = "/search" element={<SearchPage/>}/>
-         <Route path = "/previous-papers" element={<PreviousYearPapers/>}/>
+        <Router>
+
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/access" element={<Access />} />
+            <Route path="/uploadpapers" element={<UploadPapers />} />
+            <Route path="/search" element={<SearchPage />} />
+            <Route path="/previous-papers" element={<PreviousYearPapers />} />
+            <Route path="/verify-email/:token" element={<VerifyEmailPage />} />
+            <Route path="/resend-verification" element={<ResendEmailPage />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
 
 
 
-
-         <Route path="/navbar" element={
-           <ProtectedRoute>
-                <Navbar/>
+            <Route path="/navbar" element={
+              <ProtectedRoute>
+                <Navbar />
               </ProtectedRoute>}
-         />
-         <Route path="/dashboard" element={
-           <ProtectedRoute>
-           <Dashboard />
-         </ProtectedRoute>
-         } />
-         <Route path="/upload" element={
-           <ProtectedRoute>
-           <Upload />
-         </ProtectedRoute>
-         } />
+            />
+            <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/upload" element={
+              <ProtectedRoute>
+                <Upload />
+              </ProtectedRoute>
+            } />
 
 
-         <Route path="/*" element={<NotFound />} />
+            <Route path="/*" element={<NotFound />} />
 
 
 
 
-       </Routes>
-       
-     </Router>
-     <Toaster richColors position="top-right" />
+          </Routes>
+
+        </Router>
+        <Toaster richColors position="top-right" />
 
       </AuthProvider>
-     
+
     </ThemeProvider>
   )
 }

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import api from '@/lib/api';
@@ -22,13 +21,18 @@ const SearchPage: React.FC = () => {
   const [error, setError] = useState<string>('');
 
   const handleSearch = async () => {
+    const loadingToast = toast.loading("Searching for notes...");
+
     try {
       const response = await api.get(`/notes/search?subject=${subject}`);
       setNotes(response.data.notes);
       setError('');
+      toast.dismiss(loadingToast); // Dismiss loading toast on success
     } catch (error) {
       setError('Failed to fetch notes. Please try again later.');
       setNotes([]); // Clear notes on error
+      toast.dismiss(loadingToast); // Dismiss loading toast on failure
+      toast.error("Failed to fetch notes"); // Show error toast
     }
   };
 
@@ -39,6 +43,8 @@ const SearchPage: React.FC = () => {
       toast.success("You've already rated this note!");
       return;
     }
+
+    const loadingToast = toast.loading("Submitting your rating...");
 
     try {
       const res = await api.post("/notes/rate", {
@@ -51,7 +57,9 @@ const SearchPage: React.FC = () => {
         localStorage.setItem("ratedNotes", JSON.stringify(ratedNotes));
         handleSearch(); // Refresh notes after rating
       }
+      toast.dismiss(loadingToast); // Dismiss loading toast on success
     } catch (err) {
+      toast.dismiss(loadingToast); // Dismiss loading toast on failure
       toast.error("Failed to rate note");
     }
   };

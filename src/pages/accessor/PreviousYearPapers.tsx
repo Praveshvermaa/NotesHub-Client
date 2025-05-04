@@ -13,7 +13,6 @@ import { Loader } from "lucide-react"
 import api from "@/lib/api"
 import { toast } from "sonner"
 
-
 export default function PreviousYearPapers() {
     const [branch, setBranch] = useState("")
     const [year, setYear] = useState("")  // year remains a string
@@ -27,11 +26,14 @@ export default function PreviousYearPapers() {
         }
 
         setLoading(true)
+        toast.loading("Uploading...", { id: "fetch-papers" }); // Toast showing "uploading"
         try {
             const res = await api.post("/notes/previous-papers", { branch, year })
             setPapers(res.data.papers)
+            toast.dismiss("fetch-papers"); // Dismiss the loading toast once papers are fetched
         } catch (err) {
             console.error("Failed to fetch papers", err)
+            toast.error("Failed to fetch papers. Please try again later.");
         } finally {
             setLoading(false)
         }
@@ -131,8 +133,6 @@ export default function PreviousYearPapers() {
                                         >
                                             View
                                         </Button>
-
-
 
                                         <Button
                                             className="w-[48%] bg-green-500 hover:bg-green-600 text-white"

@@ -1,11 +1,10 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import api from "@/lib/api";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import api from "@/lib/api";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -17,7 +16,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-
 
 const LoginSchema = z.object({
   email: z.string().email({ message: "Invalid email address." }),
@@ -32,8 +30,11 @@ export function Login() {
       password: "",
     },
   });
+  const [notVerified,setnotverified]=useState(false);
+
   const navigate = useNavigate();
-  const { login,isAuthenticated } = useAuth();
+  const { login, isAuthenticated } = useAuth();
+
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/dashboard");
@@ -41,28 +42,32 @@ export function Login() {
   }, [isAuthenticated]);
 
   async function onSubmit(data: any) {
-    let res;
+    //  loading toast
+    const toastId = toast.loading("Processing...");
+  
     try {
-       res = await api.post("/auth/login", data);
-      if(res.data.success){
+      const res = await api.post("/auth/login", data);
+  
+      if (res.data.success) {
+        toast.success("Login Successful!", { id: toastId });
         login();
-        toast.success("Login Successful!");
         navigate("/dashboard");
       }
-      else{
-        toast.error(res.data.message);
-      }
-     
     } catch (err: any) {
-      const message = res?.data?.message || "Login failed";
-      toast.error(message);
+      const message = err?.response?.data?.message || "Login failed. Please try again.";
+      toast.error(message, { id: toastId });
+      if (err?.response?.data?.notVerified) {
+        setnotverified(true);
+      }
     }
   }
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen px-4">
       <div className="w-full max-w-sm space-y-6">
         <h2 className="text-2xl font-bold text-center">Login</h2>
+
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -72,12 +77,17 @@ export function Login() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input type="email" placeholder="Enter email" {...field} />
+                    <Input
+                      type="email"
+                      placeholder="Enter email"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="password"
@@ -87,19 +97,33 @@ export function Login() {
                   <FormControl>
                     <Input type="password" placeholder="Enter password" {...field} />
                   </FormControl>
+                  <div className="text-right mt-1">
+                    <Link to="/forgot-password" className="text-sm text-blue-600 hover:underline">
+                      Forgot Password?
+                    </Link>
+                  </div>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
             <Button type="submit" className="w-full">Login</Button>
           </form>
         </Form>
+
         <p className="text-center text-sm">
           Don’t have an account?{" "}
           <Link to="/register" className="text-blue-600 underline hover:text-blue-800">
             Sign up
           </Link>
         </p>
+
+        {notVerified?<p className="text-center text-sm">
+          If your email is not verified?{" "}
+          <Link to="/resend-verification" className="text-blue-600 underline hover:text-blue-800">
+            Verify email
+          </Link>
+        </p>:""}
       </div>
     </div>
   );

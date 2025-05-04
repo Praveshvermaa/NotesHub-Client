@@ -33,6 +33,8 @@ export default function uploadpapers() {
   });
 
   const onSubmit = async (data: any) => {
+    const toastId = toast.loading("Uploading your paper...");
+  
     try {
       setLoading(true);
       const formData = new FormData();
@@ -40,25 +42,27 @@ export default function uploadpapers() {
       formData.append("department", data.department);
       formData.append("year", data.year);
       formData.append("file", data.file);
-
+  
       const res = await api.post("/notes/uploadpaper", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
+  
       setLoading(false);
       if (res.status === 201) {
-        toast.success( res.data.message+"🚀");
+        toast.success(res.data.message + " 🚀", { id: toastId });
         form.reset();
       } else {
-        toast.error(res.data.message);
+        toast.error(res.data.message || "Something went wrong!", { id: toastId });
       }
     } catch (error: any) {
       console.error("Upload error:", error);
-      toast.error(error?.response?.data?.message || "Upload failed");
+      toast.error(error?.response?.data?.message || "Upload failed!", { id: toastId });
       setLoading(false);
     }
   };
+  
 
   return (
     <>

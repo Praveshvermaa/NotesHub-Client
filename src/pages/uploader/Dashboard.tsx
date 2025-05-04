@@ -25,20 +25,23 @@ export default function UploaderDashboard() {
 
   useEffect(() => {
     const fetchNotes = async () => {
+      const toastId = toast.loading("Fetching uploaded notes...");
       try {
-        const res = await api.get("/notes/fetch-all")
-        setNotes(res.data.notes)
+        const res = await api.get("/notes/fetch-all");
+        setNotes(res.data.notes);
+        toast.success("Notes loaded successfully!", { id: toastId });
       } catch (err) {
-        toast.error("Failed to fetch notes.")
-        setError("Failed to fetch notes.")
-        console.error(err)
+        toast.error("Failed to fetch notes.", { id: toastId });
+        setError("Failed to fetch notes.");
+        console.error(err);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
-
-    fetchNotes()
-  }, [])
+    };
+  
+    fetchNotes();
+  }, []);
+  
 
   return (
     <>

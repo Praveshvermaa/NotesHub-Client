@@ -52,8 +52,12 @@ export default function Upload() {
     },
   });
 
+  
   const onSubmit = async (data: any) => {
     try {
+      // Show loading toast
+      const loadingToast = toast.loading("Uploading notes...");
+
       setLoading(true);
       const formData = new FormData();
       formData.append("subject", data.subject);
@@ -69,6 +73,9 @@ export default function Upload() {
         },
       });
       setLoading(false);
+
+      // Dismiss loading toast and show success or error toast
+      toast.dismiss(loadingToast);
       if (res.status === 201) {
         toast.success("Notes uploaded successfully 🚀");
         form.reset();
@@ -77,6 +84,7 @@ export default function Upload() {
       }
     } catch (error: any) {
       console.error("Upload error:", error);
+      toast.dismiss(); // Dismiss loading toast on error
       toast.error(error?.response?.data?.message || "Upload failed");
       setLoading(false);
     }

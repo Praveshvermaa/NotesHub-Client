@@ -15,25 +15,23 @@ export default function Navbar() {
   
 
   const handleLogout = async () => {
+    const toastId = toast.loading("Logging you out...");
     try {
-     const res =  await api.post("/auth/logout"); // call backend to clear cookie
+      const res = await api.post("/auth/logout"); // Call backend to clear cookie
       setIsLoggedIn(false);
-      if(res.data.success){
-        console.log(res.data);
-         logout();
-        
-        toast.success("Logged out successfully!");
+      if (res.data.success) {
+        logout();
+        toast.success("Logged out successfully!", { id: toastId });
         navigate("/login");
+      } else {
+        toast.error("Something went wrong!", { id: toastId });
       }
-      else{
-        toast.error("Something went wrong!!");
-      }
-    
     } catch (err) {
-      toast.error("Logout failed!");
+      toast.error("Logout failed!", { id: toastId });
       console.error(err);
     }
   };
+  
 
   const linkClasses = ({ isActive }: { isActive: boolean }) =>
     `hover:underline hover:text-orange-600 ${isActive ? "font-bold  text-primary" : ""}`

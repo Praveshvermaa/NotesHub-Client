@@ -3,10 +3,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Link } from "react-router-dom";
 import api from "@/lib/api";
-import { useNavigate } from "react-router-dom";
+
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@/context/AuthContext";
-import { useEffect } from "react";
+
 import {
   Form,
   FormControl,
@@ -33,31 +32,26 @@ export function Register() {
       password: "",
     },
   });
-  const navigate = useNavigate();
-  const { login ,isAuthenticated} = useAuth();
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate("/dashboard");
-    }
-  }, [isAuthenticated]);
+  
 
   async function onSubmit(data: any) {
-   try {
+    //  loading toast
+    const toastId = toast.loading("Processing...");
+  
+    try {
       const res = await api.post("/auth/register", data);
-      if(res.data.success){
-        login();
-        toast.success("Signup Successful!");
+  
+      if (res.data.success) {
+        toast.success(res.data.message, { id: toastId });
         console.log(res);
-      navigate("/dashboard");
+      } else {
+        toast.error(res.data.message, { id: toastId });
       }
-      else{
-        toast.error("Something went wrong!!!")
-      }
-      
     } catch (err: any) {
-      toast.error(err?.response?.data?.message || "Signup failed");
+      toast.error(err?.response?.data?.message || "SignUp failed", { id: toastId });
     }
   }
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen px-4">

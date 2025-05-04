@@ -28,6 +28,10 @@ export default function NotesAccessor() {
       toast.success("Please choose all the fields!")
       return
     }
+
+    //  loading toast before making the request
+    const loadingToast = toast.loading("Fetching notes...")
+
     try {
       const res = await api.post("/notes", {
         branch,
@@ -39,8 +43,11 @@ export default function NotesAccessor() {
       console.error("Failed to fetch notes", err)
     } finally {
       setLoading(false)
+      // Dismiss loading toast once the request is done
+      toast.dismiss(loadingToast)
     }
   }
+
 
   const handleRating = async (noteId: string, rating: number) => {
     const ratedNotes = JSON.parse(localStorage.getItem("ratedNotes") || "[]");
@@ -49,6 +56,9 @@ export default function NotesAccessor() {
       toast.success("You've already rated this note!");
       return;
     }
+
+    //  loading toast before making the request
+    const loadingToast = toast.loading("Submitting your rating...")
 
     try {
       const res = await api.post("/notes/rate", {
@@ -65,8 +75,12 @@ export default function NotesAccessor() {
       fetchNotes();
     } catch (err) {
       console.error("Failed to rate note", err);
+    } finally {
+      // Dismiss loading toast once the rating submission is done
+      toast.dismiss(loadingToast)
     }
   };
+
   
   
 
