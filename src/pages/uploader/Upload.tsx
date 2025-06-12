@@ -52,7 +52,7 @@ export default function Upload() {
     },
   });
 
-  
+
   const onSubmit = async (data: any) => {
     try {
       // Show loading toast
@@ -103,7 +103,7 @@ export default function Upload() {
         {/* Redirect Button */}
         <div className="flex justify-center mb-6">
           <Button variant="outline" onClick={handleRedirectToPapers}>
-            Upload Previous Year Papers 
+            Upload Previous Year Papers
           </Button>
         </div>
 
@@ -237,7 +237,16 @@ export default function Upload() {
                   <FormControl>
                     <Input
                       type="file"
-                      onChange={(e) => field.onChange(e.target.files?.[0])}
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file && file.size > 10 * 1024 * 1024) {
+                          toast.error('❌ File is too large! Please upload a file under 10MB.');
+                          e.target.value = ''; // clear the file input
+                          return;
+                        }
+                        field.onChange(e.target.files?.[0])
+                      }
+                      }
                     />
                   </FormControl>
                   <FormMessage />
