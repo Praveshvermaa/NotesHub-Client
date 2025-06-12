@@ -233,7 +233,7 @@ export default function Upload() {
               name="file"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Upload Notes File</FormLabel>
+                  <FormLabel>Upload Notes File(max 10MB)</FormLabel>
                   <FormControl>
                     <Input
                       type="file"
