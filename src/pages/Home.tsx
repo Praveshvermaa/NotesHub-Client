@@ -65,12 +65,12 @@ export default function Home() {
           >
             <CardHeader>
               <CardTitle className="text-black text-xl font-semibold">
-                📥 Access Study Materials 
+                📥 Access Notes
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-gray-800 mb-4">
-                Students can browse and access a wide range of notes, past papers, and other study materials uploaded by teachers and professors.
+                Students can browse and access a wide range of notes, past papers, and other study materials .
               </p>
               <Button
                 className="w-full bg-black hover:bg-gray-800 text-white"
