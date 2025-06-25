@@ -78,14 +78,13 @@ export default function Upload() {
       toast.dismiss(loadingToast);
       if (res.status === 201) {
         toast.success("Notes uploaded successfully 🚀");
-        form.reset();
       } else {
         toast.error("Something went wrong while uploading ❌");
       }
     } catch (error: any) {
       console.error("Upload error:", error);
       toast.dismiss(); // Dismiss loading toast on error
-      toast.error(error?.response?.data?.message || "Upload failed");
+      toast.error(error?.response?.data?.message || "Upload Failed");
       setLoading(false);
     }
   };
@@ -240,7 +239,7 @@ export default function Upload() {
                       onChange={(e) => {
                         const file = e.target.files?.[0];
                         if (file && file.size > 10 * 1024 * 1024) {
-                          toast.error('❌ File is too large! Please upload a file under 10MB.');
+                          toast.error('❌ File is too large! Please compress your file under 10MB.');
                           e.target.value = ''; // clear the file input
                           return;
                         }
