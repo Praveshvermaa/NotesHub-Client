@@ -12,6 +12,8 @@ import { Button } from "@/components/ui/button"
 import { Loader } from "lucide-react"
 import api from "@/lib/api"
 import { toast } from "sonner"
+import { useNavigate } from "react-router-dom";
+
 
 export default function NotesAccessor() {
   const [branch, setBranch] = useState("")
@@ -20,6 +22,8 @@ export default function NotesAccessor() {
   const [notes, setNotes] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
   const [ratingSuccess, setRatingSuccess] = useState(false)
+  const navigate = useNavigate();
+
 
   const fetchNotes = async () => {
     setLoading(true)
@@ -40,8 +44,10 @@ export default function NotesAccessor() {
       })
       setNotes(res.data.notes)
       if (res.data.notes.length === 0) {
-        toast.info("No notes found! Try searching directly by subject name using the search option.");
+        toast.info("No notes found! Try searching directly by subject name.");
+        navigate("/search")
       }
+
     } catch (err) {
       console.error("Failed to fetch notes", err)
     } finally {
