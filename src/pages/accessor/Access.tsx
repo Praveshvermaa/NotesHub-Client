@@ -39,6 +39,9 @@ export default function NotesAccessor() {
         year,
       })
       setNotes(res.data.notes)
+      if (res.data.notes.length === 0) {
+        toast.info("No notes found! Try searching directly by subject name using the search option.");
+      }
     } catch (err) {
       console.error("Failed to fetch notes", err)
     } finally {
@@ -81,8 +84,8 @@ export default function NotesAccessor() {
     }
   };
 
-  
-  
+
+
 
   return (
     <>
