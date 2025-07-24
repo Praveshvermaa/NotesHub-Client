@@ -75,7 +75,7 @@ export default function uploadpapers() {
             onSubmit={form.handleSubmit(onSubmit)}
             className="space-y-6 bg-muted p-6 rounded-lg shadow"
           >
-            {/* Subject Field */}
+           
             <FormField
               control={form.control}
               name="subject"
@@ -90,7 +90,7 @@ export default function uploadpapers() {
               )}
             />
 
-            {/* Department Field */}
+          
             <FormField
               control={form.control}
               name="department"
@@ -119,7 +119,7 @@ export default function uploadpapers() {
               )}
             />
 
-            {/* Year Field (Now a text input) */}
+            
             <FormField
               control={form.control}
               name="year"
@@ -134,7 +134,7 @@ export default function uploadpapers() {
               )}
             />
 
-            {/* File Upload Field */}
+            
             <FormField
               control={form.control}
               name="file"
@@ -152,7 +152,7 @@ export default function uploadpapers() {
               )}
             />
 
-            {/* Submit Button */}
+           
             <Button type="submit" className="w-full">
               {loading ? "Uploading..." : "Upload"}
             </Button>

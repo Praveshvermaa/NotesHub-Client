@@ -35,7 +35,7 @@ export function Register() {
   
 
   async function onSubmit(data: any) {
-    //  loading toast
+   
     const toastId = toast.loading("Processing...");
   
     try {

@@ -12,7 +12,7 @@ interface Note {
   year: number;
   averageRating?: number;
   fileUrl: string;
-  uploaderName: string;  // Added uploaderName
+  uploaderName: string;  
 }
 
 const SearchPage: React.FC = () => {
@@ -27,12 +27,12 @@ const SearchPage: React.FC = () => {
       const response = await api.get(`/notes/search?subject=${subject}`);
       setNotes(response.data.notes);
       setError('');
-      toast.dismiss(loadingToast); // Dismiss loading toast on success
+      toast.dismiss(loadingToast); 
     } catch (error) {
       setError('Failed to fetch notes. Please try again later.');
-      setNotes([]); // Clear notes on error
-      toast.dismiss(loadingToast); // Dismiss loading toast on failure
-      toast.error("Failed to fetch notes"); // Show error toast
+      setNotes([]); 
+      toast.dismiss(loadingToast); 
+      toast.error("Failed to fetch notes"); 
     }
   };
 
@@ -55,11 +55,11 @@ const SearchPage: React.FC = () => {
         toast.success("Thanks for rating !!");
         ratedNotes.push(noteId);
         localStorage.setItem("ratedNotes", JSON.stringify(ratedNotes));
-        handleSearch(); // Refresh notes after rating
+        handleSearch(); 
       }
-      toast.dismiss(loadingToast); // Dismiss loading toast on success
+      toast.dismiss(loadingToast); 
     } catch (err) {
-      toast.dismiss(loadingToast); // Dismiss loading toast on failure
+      toast.dismiss(loadingToast); 
       toast.error("Failed to rate note");
     }
   };
@@ -83,7 +83,7 @@ const SearchPage: React.FC = () => {
         </Button>
       </div>
 
-      {/* Error or No Notes Message */}
+     
       {error && <p className="text-red-500 text-center">{error}</p>}
       {!error && notes.length === 0 && (
         <p className="text-center text-gray-500 dark:text-gray-400 mt-10 text-lg">
@@ -91,7 +91,7 @@ const SearchPage: React.FC = () => {
         </p>
       )}
 
-      {/* Displaying Notes */}
+      
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {notes.map((note) => (
           <Card
@@ -144,7 +144,7 @@ const SearchPage: React.FC = () => {
                 </Button>
               </div>
 
-              {/* Rating System */}
+             
               <div className="mt-4 text-center">
                 <h4 className="text-sm text-muted-foreground mb-2">Rate this note:</h4>
                 <div className="flex flex-wrap justify-center gap-2">
@@ -160,7 +160,7 @@ const SearchPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Uploader Name */}
+              
               <p className="text-xs text-right text-muted-foreground italic">
                     ~{note.uploaderName || "Unknown"}
                   </p>

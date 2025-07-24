@@ -1,6 +1,6 @@
 import { createContext, useState, useContext, useEffect } from "react";
 
-import api from "@/lib/api"; // Axios instance for API requests
+import api from "@/lib/api"; 
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }: any) => {
   
 
   useEffect(() => {
-    // Check if the user is already authenticated (maybe from cookies)
+   
     const checkAuth = async () => {
       try {
         const res = await api.get("/auth/check-auth"); // API route to check if user is authenticated

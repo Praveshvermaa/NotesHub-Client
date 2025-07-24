@@ -33,7 +33,7 @@ export default function NotesAccessor() {
       return
     }
 
-    //  loading toast before making the request
+   
     const loadingToast = toast.loading("Fetching notes...")
 
     try {
@@ -52,7 +52,7 @@ export default function NotesAccessor() {
       console.error("Failed to fetch notes", err)
     } finally {
       setLoading(false)
-      // Dismiss loading toast once the request is done
+     
       toast.dismiss(loadingToast)
     }
   }
@@ -66,7 +66,7 @@ export default function NotesAccessor() {
       return;
     }
 
-    //  loading toast before making the request
+   
     const loadingToast = toast.loading("Submitting your rating...")
 
     try {
@@ -85,7 +85,7 @@ export default function NotesAccessor() {
     } catch (err) {
       console.error("Failed to rate note", err);
     } finally {
-      // Dismiss loading toast once the rating submission is done
+      
       toast.dismiss(loadingToast)
     }
   };

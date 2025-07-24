@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/select";
 import Navbar from "./Navbar";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Correct for React apps
+import { useNavigate } from "react-router-dom"; 
 
 const UploadSchema = z.object({
   subject: z.string().min(1, "Subject is required"),
@@ -37,7 +37,7 @@ const UploadSchema = z.object({
 });
 
 export default function Upload() {
-  const navigate = useNavigate(); // ✅ React Router hook
+  const navigate = useNavigate(); 
   const [loading, setLoading] = useState(false);
 
   const form = useForm({
@@ -55,7 +55,7 @@ export default function Upload() {
 
   const onSubmit = async (data: any) => {
     try {
-      // Show loading toast
+      
       const loadingToast = toast.loading("Uploading notes...");
 
       setLoading(true);
@@ -74,7 +74,7 @@ export default function Upload() {
       });
       setLoading(false);
 
-      // Dismiss loading toast and show success or error toast
+      
       toast.dismiss(loadingToast);
       if (res.status === 201) {
         toast.success("Notes uploaded successfully 🚀");
@@ -83,7 +83,7 @@ export default function Upload() {
       }
     } catch (error: any) {
       console.error("Upload error:", error);
-      toast.dismiss(); // Dismiss loading toast on error
+      toast.dismiss(); 
       toast.error(error?.response?.data?.message || "Upload Failed");
       setLoading(false);
     }
@@ -99,7 +99,7 @@ export default function Upload() {
       <div className="max-w-xl mx-auto py-10 px-4">
         <h1 className="text-2xl font-semibold mb-6 text-center">Upload Notes</h1>
 
-        {/* Redirect Button */}
+        
         <div className="flex justify-center mb-6">
           <Button variant="outline" onClick={handleRedirectToPapers}>
             Upload Previous Year Papers
@@ -240,7 +240,7 @@ export default function Upload() {
                         const file = e.target.files?.[0];
                         if (file && file.size > 10 * 1024 * 1024) {
                           toast.error('❌ File is too large! Please compress your file under 10MB.');
-                          e.target.value = ''; // clear the file input
+                          e.target.value = '';
                           return;
                         }
                         field.onChange(e.target.files?.[0])

@@ -15,7 +15,7 @@ import { toast } from "sonner"
 
 export default function PreviousYearPapers() {
     const [branch, setBranch] = useState("")
-    const [year, setYear] = useState("")  // year remains a string
+    const [year, setYear] = useState("")  
     const [papers, setPapers] = useState<any[]>([])
     const [loading, setLoading] = useState(false)
 
@@ -26,11 +26,11 @@ export default function PreviousYearPapers() {
         }
 
         setLoading(true)
-        toast.loading("Uploading...", { id: "fetch-papers" }); // Toast showing "uploading"
+        toast.loading("Uploading...", { id: "fetch-papers" }); 
         try {
             const res = await api.post("/notes/previous-papers", { branch, year })
             setPapers(res.data.papers)
-            toast.dismiss("fetch-papers"); // Dismiss the loading toast once papers are fetched
+            toast.dismiss("fetch-papers");
         } catch (err) {
             console.error("Failed to fetch papers", err)
             toast.error("Failed to fetch papers. Please try again later.");
@@ -55,7 +55,7 @@ export default function PreviousYearPapers() {
                 </div>
             </section>
 
-            {/* Filters */}
+            
             <div className="container mx-auto px-4 mt-6 flex flex-wrap gap-4 justify-center">
                 <Select onValueChange={setBranch}>
                     <SelectTrigger className="w-[130px] text-sm">
@@ -70,7 +70,7 @@ export default function PreviousYearPapers() {
                     </SelectContent>
                 </Select>
 
-                {/* Year Input */}
+             
                 <div className=" text-sm">
                     <input
                         type="text"
@@ -89,7 +89,7 @@ export default function PreviousYearPapers() {
                 </Button>
             </div>
 
-            {/* Papers List */}
+          
             <div className="container mx-auto px-4 mt-10 pb-10">
                 {loading ? (
                     <div className="flex justify-center mt-10">

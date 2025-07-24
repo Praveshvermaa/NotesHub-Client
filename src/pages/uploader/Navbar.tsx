@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import { useAuth } from "@/context/AuthContext";
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true) // Replace with real auth state
+  const [isLoggedIn, setIsLoggedIn] = useState(true) 
   const navigate = useNavigate()
   const { logout } = useAuth();
   
@@ -17,7 +17,7 @@ export default function Navbar() {
   const handleLogout = async () => {
     const toastId = toast.loading("Logging you out...");
     try {
-      const res = await api.post("/auth/logout"); // Call backend to clear cookie
+      const res = await api.post("/auth/logout"); 
       setIsLoggedIn(false);
       if (res.data.success) {
         logout();

@@ -35,7 +35,7 @@ export default function Home() {
 
         {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {/* Share Notes (For Teachers/Professors) */}
+         
           <Card
             className="w-80 bg-white/90 border border-white/30 rounded-xl p-4 hover:scale-105 transition-transform cursor-pointer shadow-lg"
             onClick={() => navigate("/login")}
@@ -58,7 +58,7 @@ export default function Home() {
             </CardContent>
           </Card>
 
-          {/* Access Notes (For Students) */}
+          
           <Card
             className="w-80 bg-white/90 border border-white/30 rounded-xl p-4 hover:scale-105 transition-transform cursor-pointer shadow-lg"
             onClick={() => navigate("/access")}

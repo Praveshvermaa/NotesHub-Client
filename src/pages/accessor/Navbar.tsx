@@ -10,24 +10,17 @@ export default function NavbarAccessor() {
   return (
     <header className="w-full bg-background border-b">
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        {/* Left: Logo */}
+        
         <div onClick={()=>navigate("/access")} className="flex cursor-pointer items-center gap-2 text-lg font-semibold">
           <BookOpen className="h-5 w-5 text-yellow-500" />
           NotesHub
         </div>
 
-        {/* Right side */}
+        
         <div className="flex items-center gap-4">
-          {/* Previous Year Papers (visible on md+) */}
-          {/* <Button
-            variant="ghost"
-            onClick={() => navigate("/previous-papers")}
-            className="hidden md:flex"
-          >
-            📄 Previous Year Papers
-          </Button> */}
+         
 
-          {/* Search Icon */}
+          
           <Button
             variant="ghost"
             size="icon"
@@ -37,7 +30,7 @@ export default function NavbarAccessor() {
             <Search className="h-5 w-5" />
           </Button>
 
-          {/* Hamburger menu on all screens */}
+          
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">
